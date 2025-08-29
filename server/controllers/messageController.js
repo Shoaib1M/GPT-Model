@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import Chat from "../models/Chat.js";
-import imagekit from "../configs/imageKit";
+import imagekit from "../configs/imageKit.js";
 import openai from "../configs/openai.js";
 
 export const textMessageController = async (req, res) => {
