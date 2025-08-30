@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { dummyPublishedImages } from "../assets/assets";
-import Loading from "./loading";
+import Loading from "./Loading";
 import { useAppContext } from "../context/AppContext";
 
 const Community = () => {
