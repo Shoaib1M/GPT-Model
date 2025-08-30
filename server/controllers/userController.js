@@ -85,7 +85,7 @@
 //   }
 // };
 
-import User from "../models/User.js";
+import User from "../models/user.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import Chat from "../models/Chat.js";
