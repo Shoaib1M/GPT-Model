@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import Sidebar from "./components/sidebar";
-import Chatbox from "./components/Chatbox";
-import Community from "./pages/community";
+import Chatbox from "./components/Chatbox.jsx";
+import Community from "./pages/Community.jsx";
 import { assets } from "./assets/assets";
 import "./assets/prism.css";
-import Loading from "./pages/loading";
-import Login from "./pages/login";
-import { useAppContext } from "./context/AppContext";
+import Loading from "./pages/Loading.jsx";
+import Login from "./pages/Login.jsx";
+import { useAppContext } from "./context/AppContext.jsx";
 import { Toaster } from "react-hot-toast";
 
 const App = () => {
