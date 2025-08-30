@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useAppContext } from "../context/AppContext";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const [state, setState] = useState("login");
@@ -11,6 +12,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const url = state === "login" ? "/api/user/login" : "/api/user/register";
+
     try {
       const { data } = await axios.post(url, { name, email, password });
       if (data.success) {
@@ -23,6 +25,7 @@ const Login = () => {
       toast.error(error.message);
     }
   };
+
   return (
     <form
       onSubmit={handleSubmit}

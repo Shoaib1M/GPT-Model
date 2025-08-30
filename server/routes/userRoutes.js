@@ -1,11 +1,11 @@
 import express from "express";
 import {
   getPublishedImages,
+  getUser,
+  loginUser,
   registerUser,
 } from "../controllers/userController.js";
 import { protect } from "../middlewares/auth.js";
-import { loginUser } from "../controllers/userController.js";
-import { getUser } from "../controllers/userController.js";
 
 const userRouter = express.Router();
 
