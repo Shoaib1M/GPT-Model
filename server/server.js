@@ -16,23 +16,19 @@ app.use("/api/user", userRouter);
 app.use("/api/chat", chatRouter);
 app.use("/api/message", messageRouter);
 
-if (process.env.NODE_ENV !== "production") {
-  const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
-  const startServer = async () => {
-    try {
-      await connectDB();
-      app.listen(PORT, () => {
-        console.log(`Server is running on port ${PORT}`);
-      });
-    } catch (error) {
-      console.error("Failed to start server:", error);
-    }
-  };
+const startServer = async () => {
+  try {
+    await connectDB();
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
+  } catch (error) {
+    console.error("Failed to start server:", error);
+  }
+};
 
-  startServer();
-} else {
-  connectDB().catch((err) => console.error("DB connection failed:", err));
-}
+startServer();
 
 export default app;
