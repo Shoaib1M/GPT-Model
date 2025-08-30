@@ -20,7 +20,11 @@ export const registerUser = async (req, res) => {
       return res.json({ success: false, message: "User already Exists" });
     }
 
-    const user = await User.create({ name, email, password });
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    const user = await User.create({ name, email, password: hashedPassword });
+
     const token = generateToken(user._id);
     res.json({ success: true, token });
   } catch (error) {

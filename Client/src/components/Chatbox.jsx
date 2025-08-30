@@ -4,15 +4,46 @@ import { useAppContext } from "../context/AppContext";
 import Message from "./message";
 const Chatbox = () => {
   const containerRef = useRef(null);
-  const { selectedchat, theme } = useAppContext();
+  const { selectedchat, theme, user, axios, token, setUser } = useAppContext();
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(false);
   const [prompt, setPrompt] = useState("");
   const [mode, setMode] = useState("text");
-  const [isPublished, setIsPublished] = useState("false");
+  const [isPublished, setIsPublished] = useState(false);
 
   const onSubmit = async (e) => {
-    e.preventDefualt();
+    try {
+      e.preventDefault();
+      if (!user) return toast("Login to send message");
+      setLoading(true);
+      const promptcopy = prompt;
+      setPrompt("");
+      setMessages((prev) => [
+        ...prev,
+        {
+          role: "user",
+          content: prompt,
+          timestamp: Date.now(),
+          isImage: false,
+        },
+      ]);
+      const { data } = await axios.post(
+        `/api/message/${mode}`,
+        { chatId: selectedchat._id, prompt, isPublished },
+        { headers: { Authorization: token } }
+      );
+      if (data.success) {
+        setMessages((prev) => [...prev, data.reply]);
+      } else {
+        toast.error(data.message);
+        setPrompt(promptcopy);
+      }
+    } catch (error) {
+      toast.error(error.message);
+    } finally {
+      setPrompt("");
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -25,7 +56,7 @@ const Chatbox = () => {
     if (containerRef.current) {
       containerRef.current.scrollTo({
         top: containerRef.current.scrollHeight,
-        behaviour: "smooth",
+        behavior: "smooth",
       });
     }
   }, [messages]);
